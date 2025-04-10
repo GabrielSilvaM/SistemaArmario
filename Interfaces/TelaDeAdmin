@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel do Administrador</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            background-color: white;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            margin: 5px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .excluir {
+            background-color: #dc3545;
+        }
+
+        .registrar {
+            background-color: #28a745;
+        }
+
+        .voltar {
+            background-color: #6c757d;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .actions a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Painel do Administrador</h1>
+    <table>
+        <tr>
+            <th>Selecionar</th>
+            <th>Número do Armário</th>
+            <th>Nome do Dono</th>
+            <th>ID</th>
+        </tr>
+        <tr><td><input type="checkbox" name="armario" value="1"></td><td>1</td><td>N/D</td><td>N/D</td></tr>
+        <tr><td><input type="checkbox" name="armario" value="2"></td><td>2</td><td>N/D</td><td>N/D</td></tr>
+        <tr><td><input type="checkbox" name="armario" value="3"></td><td>3</td><td>N/D</td><td>N/D</td></tr>
+        <tr><td><input type="checkbox" name="armario" value="4"></td><td>4</td><td>N/D</td><td>N/D</td></tr>
+        <tr><td><input type="checkbox" name="armario" value="5"></td><td>5</td><td>N/D</td><td>N/D</td></tr>
+        <tr><td><input type="checkbox" name="armario" value="6"></td><td>6</td><td>N/D</td><td>N/D</td></tr>
+        <tr><td><input type="checkbox" name="armario" value="7"></td><td>7</td><td>N/D</td><td>N/D</td></tr>
+        <tr><td><input type="checkbox" name="armario" value="8"></td><td>8</td><td>N/D</td><td>N/D</td></tr>
+        <tr><td><input type="checkbox" name="armario" value="9"></td><td>9</td><td>N/D</td><td>N/D</td></tr>
+        <tr><td><input type="checkbox" name="armario" value="10"></td><td>10</td><td>N/D</td><td>N/D</td></tr>
+    </table>
+    <div class="actions">
+        <button type="button" class="btn excluir">Excluir Selecionados</button>
+        <a href="registro-armario.html" class="btn registrar">Registrar Novo Armário</a>
+        <a href="PainelPrincipal.html" class="btn voltar">Voltar</a>
+    </div>
+</body>
+</html>
