@@ -152,6 +152,4 @@ SQLite: Banco de dados levE.
 
 Hospedagem:
 Inicialmente rodando localmente.
-Possibilidade futura de hospedagem em um servidor simples ou serviço de nuvem como Heroku ou AWS.
-
     
