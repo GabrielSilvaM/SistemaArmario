@@ -139,13 +139,11 @@ Pós-condição
 O armário está reservado para o usuário, e o sistema registra a ação.
 
 Tecnologias Utilizadas
-Frontend (Interface de Usuário):
-HTML5: Estruturação de páginas.
-CSS3: Estilização e responsividade do layout.
-JavaScript: Funcionalidades interativas no navegador.
+Frontend:
+Python
 
-Backend (Servidor e Lógica de Aplicação):
-Python: Linguagem de programação para a construção do servidor e regras de negócio.
+Backend:
+Python
 
 Banco de Dados:
 SQLite: Banco de dados levE.
