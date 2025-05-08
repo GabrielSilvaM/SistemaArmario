@@ -1,0 +1,6 @@
+#Ignorando arquivos temporários, venv, variáveis de ambiente e o db SQLite criado
+.env
+.venv
+__pycache__/
+*.pyc
+instance/
