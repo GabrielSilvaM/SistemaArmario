@@ -140,7 +140,7 @@ O armário está reservado para o usuário, e o sistema registra a ação.
 
 Tecnologias Utilizadas
 Frontend:
-Python
+HTML, CSS, Javascript
 
 Backend:
 Python
