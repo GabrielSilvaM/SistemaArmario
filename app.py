@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
+from controllers.mainController import MainController
 
 #Instanciando o app e definindo pasta de templates
 app = Flask(__name__, template_folder=os.path.join('view','templates'))
@@ -19,6 +20,9 @@ with app.app_context():
         opcoes = [Disponibilidade(descricao='Disponível'), Disponibilidade(descricao='Em uso'),Disponibilidade(descricao='Reservado')]
         db.session.add_all(opcoes)
         db.session.commit()
+
+
+app.add_url_rule('/', 'index', MainController.index)
 
 if __name__  == '__main__':
     app.run(debug=True)

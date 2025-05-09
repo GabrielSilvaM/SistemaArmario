@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href={{ url_for('static', filename='css/Login.css') }}>
+</head>
+<body>
+    <h1>Login do Administrador</h1>
+    <form method="post" action="/admin">
+        <label for="login">Login:</label>
+        <input type="text" id="login" name="login" required>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required>
+        <button type="submit">Entrar</button>
+        <a href="PainelPrincipal.html" class="voltar">Voltar</a>
+    </form>
+</body>
+</html>

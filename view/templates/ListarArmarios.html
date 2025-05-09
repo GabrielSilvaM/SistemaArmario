@@ -3,45 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Armários Cadastrados</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background-color: #f9f9f9;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 70%;
-            background-color: white;
-            margin-bottom: 30px;
-        }
-
-        th, td {
-            padding: 12px;
-            border: 1px solid #ccc;
-            text-align: center;
-        }
-
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .voltar {
-            padding: 10px 20px;
-            background-color: #6c757d;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" href={{ url_for('static', filename='css/ListarArmarios.css') }}>
 </head>
 <body>
     <h1>Armários Cadastrados</h1>
