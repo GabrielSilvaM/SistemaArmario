@@ -1,7 +1,8 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 40px;
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 form {
@@ -30,19 +31,4 @@ button {
     cursor: pointer;
 }
 
-button.voltar {
-    background-color: #6c757d;
-    margin-left: 10px;
-}
 
-.voltar {
-    display: block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    text-decoration: none;
-}

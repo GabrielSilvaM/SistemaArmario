@@ -1,34 +1,30 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Painel do Administrador</title>
+{% extends 'base.html' %}
+
+{% block title %}{{_('Painel Admin')}}{% endblock %}
+
+{% block head_extra %}
     <link rel="stylesheet" href={{ url_for('static', filename='css/PainelAdmin.css') }}>
-</head>
-<body>
-    <h1>Painel do Administrador</h1>
-    <table>
-        <tr>
-            <th>Selecionar</th>
-            <th>Número do Armário</th>
-            <th>Nome do Dono</th>
-            <th>ID</th>
-        </tr>
-        <tr><td><input type="checkbox" name="armario" value="1"></td><td>1</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td><input type="checkbox" name="armario" value="2"></td><td>2</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td><input type="checkbox" name="armario" value="3"></td><td>3</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td><input type="checkbox" name="armario" value="4"></td><td>4</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td><input type="checkbox" name="armario" value="5"></td><td>5</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td><input type="checkbox" name="armario" value="6"></td><td>6</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td><input type="checkbox" name="armario" value="7"></td><td>7</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td><input type="checkbox" name="armario" value="8"></td><td>8</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td><input type="checkbox" name="armario" value="9"></td><td>9</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td><input type="checkbox" name="armario" value="10"></td><td>10</td><td>N/D</td><td>N/D</td></tr>
-    </table>
-    <div class="actions">
-        <button type="button" class="btn excluir">Excluir Selecionados</button>
-        <a href="registro-armario.html" class="btn registrar">Registrar Novo Armário</a>
-        <a href="PainelPrincipal.html" class="btn voltar">Voltar</a>
-    </div>
-</body>
-</html>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Painel do Administrador</h1>
+        <form method="post" action="/add">
+            <label>{{_('Capacidade')}}</label>
+            <select name="capacidade">
+                <option value="Pequeno">{{_('Pequeno')}}</option>
+                <option value="Medio">{{_('Médio')}}</option>
+                <option value="Grande">{{_(Grande)}}</option>
+            </select>
+            <label>{{_('Localização')}}</label>
+            <select name="localizacao">
+                <option value="Sala 1">{{_('Sala 1')}}</option>
+                <option value='Sala 2'>{{_('Sala 2')}}</option>
+            </select>
+            <button type="submit">{{_('Cadastrar')}}</button>
+        </form>
+        {% if success %}
+            <p class="success">{{success}}</p>
+        {% endif %}
+    </main>
+{% endblock %}

@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Painel Inicial</title>
+{% extends 'base.html' %}
+
+{% block title %}{{_('Página Inicial')}}{% endblock %}
+
+{% block head_extra %}
     <link rel="stylesheet" href={{ url_for('static', filename='css/PaginaInicial.css') }}>
-</head>
-<body>
-    <h1>Página Inicial</h1>
-    <a href="LoginAdmin.html" class="btn admin">Admin</a>
-    <a href="VisualizacaoDeArmario.html" class="btn visual">Visualização de Armário</a>
-    <a href="RegistroArmario.html" class="btn registro">Registro de Armário</a>
-    <a href="sair.html" class="btn sair">Sair</a>
-</body>
-</html>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Página Inicial</h1>
+        <a href="LoginAdmin.html" class="btn admin">Admin</a>
+        <a href="VisualizacaoDeArmario.html" class="btn visual">Visualização de Armário</a>
+        <a href="RegistroArmario.html" class="btn registro">Registro de Armário</a>
+        <a href="sair.html" class="btn sair">Sair</a>
+    </main>
+{% endblock %}

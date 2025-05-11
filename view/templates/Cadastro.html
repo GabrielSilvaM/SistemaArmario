@@ -1,11 +1,31 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
+{% extends 'base.html' %}
+
+{% block title %}{{_('Cadastro')}}{% endblock %}
+
+{% block head_extra %}
     <link rel="stylesheet" href={{ url_for('static', filename='css/Cadastro.css') }}>
-    <title>Cadastro</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <form method="post" action="/cadastro">
+            <h2>{{_('Cadastro de Usuário')}}</h2>
+            <label for="nome">{{_('Nome:')}}</label>
+            <input type="text" name="nome" required>
+            <label for="username">{{_('Nome de Usuário:')}}</label>
+            <input type="text" name="username" required>
+            <label for="senha">{{_('Senha:')}}</label>
+            <input type="password" name="senha" required>
+            <button type="submit">{{_('Cadastrar')}}</button>
+            {% if success %}
+                <p class="success">{{success}}</p>
+            {% endif %}
+            {% if fail %}
+                <p class="fail">{{fail}}</p>
+            {% endif %}
+            <br>
+            <br>
+            <a href="/login">{{_('Já possui uma conta?')}}</a>
+        </form>
+    </main>
+{% endblock %}

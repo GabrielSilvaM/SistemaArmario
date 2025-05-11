@@ -1,29 +1,56 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Armários Cadastrados</title>
+{% extends 'base.html' %}
+
+{% block title %}{{_('Listar Armarios')}}{% endblock %}
+
+{% block head_extra %}
     <link rel="stylesheet" href={{ url_for('static', filename='css/ListarArmarios.css') }}>
-</head>
-<body>
-    <h1>Armários Cadastrados</h1>
-    <table>
-        <tr>
-            <th>Número do Armário</th>
-            <th>Nome do Dono</th>
-            <th>ID</th>
-        </tr>
-        <tr><td>1</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td>2</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td>3</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td>4</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td>5</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td>6</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td>7</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td>8</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td>9</td><td>N/D</td><td>N/D</td></tr>
-        <tr><td>10</td><td>N/D</td><td>N/D</td></tr>
-    </table>
-    <a href="PainelPrincipal.html" class="voltar">Voltar</a>
-</body>
-</html>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h2>{{_('Lista de Armários')}}</h2>
+        <div>
+            <select id="filtro-capacidade">
+                <option value="">{{ _('Todas as capacidades') }}</option>
+                {% for c in capacidades %}
+                <option value="{{ c }}">{{ c }}</option>
+                {% endfor %}
+            </select>
+        
+            <select id="filtro-local">
+                <option value="">{{ _('Todos os locais') }}</option>
+                {% for l in locais %}
+                <option value="{{ l }}">{{ l }}</option>
+                {% endfor %}
+            </select>
+        
+            <select id="filtro-disponibilidade">
+                <option value="">{{ _('Todas as disponibilidades') }}</option>
+                {% for d in disponibilidades %}
+                <option value="{{ d }}">{{ d }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <table id="tabela-armarios">
+            <thead>
+                <tr>
+                    <th>ID</th><th>Capacidade</th><th>Localização</th><th>Disponibilidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in armarios %}
+                <tr data-capacidade="{{ a.capacidade }}" data-local="{{ a.localizacao }}" data-disponibilidade="{{ a.disponibilidade.descricao }}">
+                    <td>{{ a.id }}</td>
+                    <td>{{ a.capacidade }}</td>
+                    <td>{{ a.localizacao }}</td>
+                    <td>{{ a.disponibilidade.descricao }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <script src={{ url_for('static', filename='js/ListarArmarios.js') }}></script>
+        
+            
+    </main>
+{% endblock %}  

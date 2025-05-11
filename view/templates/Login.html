@@ -1,19 +1,30 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
+{% extends 'base.html' %}
+
+{% block title %}{{_('Login')}}{% endblock %}
+
+{% block head_extra %}
     <link rel="stylesheet" href={{ url_for('static', filename='css/Login.css') }}>
-</head>
-<body>
-    <h1>Login do Administrador</h1>
-    <form method="post" action="/admin">
-        <label for="login">Login:</label>
-        <input type="text" id="login" name="login" required>
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required>
-        <button type="submit">Entrar</button>
-        <a href="PainelPrincipal.html" class="voltar">Voltar</a>
-    </form>
-</body>
-</html>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <form method="post" action="/login">
+            <h2>{{_('Login de Usuários')}}</h2>
+            <label for="username">{{_('Login:')}}</label>
+            <input type="text" id="username" name="username" required>
+            <label for="senha">{{_('Senha:')}}</label>
+            <input type="password" id="senha" name="senha" required>
+            <button type="submit">{{_('Entrar')}}</button>
+            {% if success %}
+                <p class="success">{{success}}</p>
+            {% endif %}
+            {% if fail %}
+                <p class="fail">{{fail}}</p>
+            {% endif %}
+            <br>
+            <br>
+            <a href="/cadastro">{{_('Ainda não possui uma conta?')}}</a>
+        </form>
+    </main>
+{% endblock %}
+
