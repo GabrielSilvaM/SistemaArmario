@@ -4,6 +4,7 @@ from flask_babel import Babel, _
 from config import Config
 from controllers.usuarioController import usuario_bp
 from controllers.armarioController import armario_bp
+from controllers.reservaController import reserva_bp
 
 #Instanciando o app e definindo pasta de templates
 app = Flask(__name__, template_folder=os.path.join('view','templates'))
@@ -15,6 +16,7 @@ babel = Babel(app)
 #Aplicando os bps de rotas dos controllers
 app.register_blueprint(usuario_bp)
 app.register_blueprint(armario_bp)
+app.register_blueprint(reserva_bp)
 
 #importando tudo no models e incluindo o db no app
 from models import *

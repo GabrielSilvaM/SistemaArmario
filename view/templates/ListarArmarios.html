@@ -27,7 +27,7 @@
             <select id="filtro-disponibilidade">
                 <option value="">{{ _('Todas as disponibilidades') }}</option>
                 {% for d in disponibilidades %}
-                <option value="{{ d }}">{{ d }}</option>
+                <option value="{{ d.descricao }}">{{ d.descricao }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -40,7 +40,7 @@
             </thead>
             <tbody>
                 {% for a in armarios %}
-                <tr data-capacidade="{{ a.capacidade }}" data-local="{{ a.localizacao }}" data-disponibilidade="{{ a.disponibilidade.descricao }}">
+                <tr onclick='selecionarLinha(this)'data-capacidade="{{ a.capacidade }}" data-local="{{ a.localizacao }}" data-disponibilidade="{{ a.disponibilidade.descricao }}">
                     <td>{{ a.id }}</td>
                     <td>{{ a.capacidade }}</td>
                     <td>{{ a.localizacao }}</td>
@@ -49,7 +49,26 @@
                 {% endfor %}
             </tbody>
         </table>
+        <div>
+            <button onclick="limparSelecao()">Limpar Seleção</button>
+            <button>Reservar Armário</button>
+        </div>
+        <form action="/reservar" method="post">
+            <label>Id Usuário</label>
+            <input type="number" name="usuarioId">
+            <input name="armarioId" id='input-id-armario'hidden>
+            <label>Inicio da Reserva</label>
+            <input type="date" name="inicio">
+            <label>Fim da Reserva</label>
+            <input type="date" name="fim">
+            <button type="submit">Reservar</button>
+            
+        </form>
+        {% if fail %}
+            <p class="fail">{{fail}}</p>
+        {% endif %}
         <script src={{ url_for('static', filename='js/ListarArmarios.js') }}></script>
+
         
             
     </main>

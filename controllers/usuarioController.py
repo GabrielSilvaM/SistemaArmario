@@ -54,3 +54,9 @@ def cadastro():
 @usuario_bp.route('/admin', methods=['GET'])
 def admin():
     return render_template('PainelAdmin.html')
+
+
+
+@usuario_bp.route('/cancelar', methods=['POST'])
+def cancelarReserva():
+    pass

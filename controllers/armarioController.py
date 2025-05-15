@@ -18,9 +18,9 @@ def adicionarArmario():
 @armario_bp.route('/list')
 def listarArmarios():
     armarios = Armario.query.all()
-    capacidades = sorted(set([a.capacidade for a in armarios]))
-    locais = sorted(set([a.localizacao for a in armarios]))
-    disponibilidades = sorted(set([a.disponibilidade for a in armarios]))
+    capacidades = sorted({a.capacidade for a in armarios})
+    locais = sorted({a.localizacao for a in armarios})
+    disponibilidades = Disponibilidade.query.order_by(Disponibilidade.id).all()
     return render_template('ListarArmarios.html', armarios=armarios,
                            capacidades=capacidades,
                            locais=locais,

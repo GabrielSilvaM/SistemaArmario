@@ -8,5 +8,6 @@ class Reserva(db.Model):
     armarioId = db.Column(db.Integer,db.ForeignKey('armario.id'), nullable=False)
     usuarioId = db.Column(db.Integer,db.ForeignKey('usuario.id'), nullable=False)
 
+    #Consigura os relacionamentos
     armario = db.relationship('Armario', backref='reserva',lazy=True)
     usuario = db.relationship('Usuario', backref='reserva',lazy=True)

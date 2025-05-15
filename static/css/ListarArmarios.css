@@ -27,3 +27,6 @@ th {
     cursor: pointer;
     text-decoration: none;
 }
+.selecionada{
+    background-color: aquamarine;
+}
