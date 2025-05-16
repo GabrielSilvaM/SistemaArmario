@@ -15,12 +15,20 @@
         <div id="rotas">   
             <a href="/">{{_('Início')}}</a>
             <a href="/list">{{_('Armários')}}</a>
+            {% if usuarioAtual.admin %}
             <a href="/admin">{{_('Administração')}}</a>
+            {% endif %}
         </div>
-        <div id="entrar">
-            <a href="/login">{{_('Login')}}</a>
-            <a href="/cadastro">{{_('Cadastro')}}</a>
-        </div>
+        {% if usuarioAtual.is_authenticated %}
+            <div id="usuario">
+                <a href="/logout">{{_('Logout')}}</a>
+            </div>
+        {% else %}
+            <div id="usuario">
+                <a href="/login">{{_('Login')}}</a>
+                <a href="/cadastro">{{_('Cadastro')}}</a>
+            </div>
+        {% endif %}
     </header>
 
     {% block content %}{% endblock %}

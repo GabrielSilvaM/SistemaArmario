@@ -1,4 +1,5 @@
-from flask import render_template, request, redirect, url_for, Blueprint
+from flask import render_template, request, redirect, url_for, Blueprint, flash
+from flask_login import login_user, login_required, logout_user
 from bcrypt import hashpw, gensalt, checkpw
 from flask_babel import _
 #Importante o pacote de models e o db
@@ -15,15 +16,16 @@ def login():
         senha = request.form.get('senha')
         #Verificando se o usuário está cadastrado
         busca = Usuario.query.filter_by(nomeDeUsuario=username).first()
-        if busca:
-            #Comparando os hashes das senhas
-            if checkpw(senha.encode('utf-8'), busca.senha):
-                return redirect(url_for('index'))
-            else:
-                return render_template('Login.html',fail=_("Usuário ou senha inválidos"))
+        #Comparando os hashes das senhas e se o usuário existe
+        if busca and checkpw(senha.encode('utf-8'), busca.senha):
+            #Função de login do flask-login
+            login_user(busca)
+            return redirect(url_for('index'))
+
         else:
-            return render_template('Login.html',fail=_("Usuário ou senha inválidos"))
-        
+            flash(_("Usuário ou senha inválidos"),'fail')
+            return redirect(url_for('usuario.login'))
+
     else:    
         return render_template('Login.html')
 
@@ -37,7 +39,8 @@ def cadastro():
         senha = request.form.get('senha')
         #Verificando se o usuário ja existe e retorna que o usuário ja está cadastrado
         if Usuario.query.filter_by(nomeDeUsuario=username).first():
-            return render_template('Cadastro.html', fail=_("Usuário ja cadastrado"))
+            flash(_("Usuário já cadastrado"),'fail')
+            return redirect(url_for('usuario.cadastro'))
         #Gerando salt e hash, usando 10 rounds por conta de performance, de 10 pra 12 deu ~200ms de diferença no tempo de resposta
         salt = gensalt(rounds=10)
         senhaHash = hashpw(senha.encode('utf-8'), salt)
@@ -45,13 +48,23 @@ def cadastro():
         novoUsuario = Usuario(nome=nome, nomeDeUsuario=username,senha=senhaHash)
         db.session.add(novoUsuario)
         db.session.commit()
-        return render_template('Login.html', success=_("Cadastro realizado com sucesso"))
+        flash(_("Cadastro realizado com sucesso"),'success')
+        return redirect(url_for('usuario.login'))
 
     else:
         return render_template('Cadastro.html')
     
 
+@usuario_bp.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash(_("Você foi desconectado."), 'info')
+    return redirect(url_for('index'))
+
+
 @usuario_bp.route('/admin', methods=['GET'])
+@login_required
 def admin():
     return render_template('PainelAdmin.html')
 

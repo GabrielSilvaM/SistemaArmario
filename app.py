@@ -1,6 +1,8 @@
 import os
 from flask import Flask, render_template
 from flask_babel import Babel, _
+from flask_login import LoginManager, current_user
+from bcrypt import gensalt, hashpw
 from config import Config
 from controllers.usuarioController import usuario_bp
 from controllers.armarioController import armario_bp
@@ -12,6 +14,24 @@ app = Flask(__name__, template_folder=os.path.join('view','templates'))
 #Aplicando as configurações do config.py
 app.config.from_object(Config)
 babel = Babel(app)
+
+#Inicializando o gerenciador de logins
+loginManager = LoginManager()
+loginManager.init_app(app)
+loginManager.login_view = 'usuario.login'
+
+#Função para carregar o usuário da sessão
+@loginManager.user_loader
+def load_user(userId):
+    return Usuario.query.get(int(userId))
+
+#Injeta variáveis no contexto de renderização dos templates
+#Tudo que estiver dentro do dicionário será acessivel no template
+#É chamado toda vez que um template é renderizado
+@app.context_processor
+def inject_user():
+    return { 'usuarioAtual' : current_user } 
+    
 
 #Aplicando os bps de rotas dos controllers
 app.register_blueprint(usuario_bp)
@@ -28,6 +48,13 @@ with app.app_context():
     if  not Disponibilidade.query.first():
         opcoes = [Disponibilidade(descricao=_('Disponível')), Disponibilidade(descricao=_('Em uso')),Disponibilidade(descricao=_('Reservado'))]
         db.session.add_all(opcoes)
+
+        #Adicionando usuário administrador para fins de teste, pode ser removido depois
+        salt = gensalt(rounds=10)
+        senhaHash = hashpw('admin'.encode('utf-8'), salt)
+        admin = Usuario(nome='Administrador', admin=True, nomeDeUsuario='admin', senha=senhaHash)
+        db.session.add(admin)
+
         db.session.commit()
 
 #Rota da página inicial que renderiza o template html

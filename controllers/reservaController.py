@@ -1,4 +1,5 @@
-from flask import render_template, request, redirect, url_for, Blueprint
+from flask import render_template, request, redirect, url_for, Blueprint, flash
+from flask_login import login_required
 from flask_babel import _
 #Importante o pacote de models e o db
 from models import *
@@ -8,19 +9,29 @@ from sqlalchemy.exc import SQLAlchemyError
 reserva_bp = Blueprint('reserva',__name__)
 
 @reserva_bp.route('/reservar', methods=['POST'])
+@login_required
 def reservarArmario():
     dataInicio = request.form.get('inicio')
     dataFim = request.form.get('fim')
     armarioId = request.form.get('armarioId')
     usuarioId = request.form.get('usuarioId')
+    #Verifica se ha algum valor em todos os campos
+    if not armarioId or not usuarioId or not dataInicio or not dataFim:
+        flash(_("Houve um problema com a sua reserva, verifique os campos e tente novamente"),'fail')
+        return redirect(url_for('armario.listarArmarios'))
+
     #Convertendo string para datas, passar no formato YYYY-MM-DD
-    #tratando possíveis erros de formato
+    #Tratando possíveis erros de formato
     try:    
         inicioDate = datetime.strptime(dataInicio, "%Y-%m-%d").date()
         fimDate = datetime.strptime(dataFim, "%Y-%m-%d").date()
+        if inicioDate > fimDate:
+            flash(_("A data de início deve vir antes, selecione novamente as datas"),'fail')
+            return redirect(url_for('armario.listarArmarios'))
 
     except ValueError as e:
-        return render_template("ListarArmarios.html", fail=_("Data em formato inválido, contate o suporte"))
+        flash(_(f"Erro na conversão de datas {e}"),'fail')
+        return redirect(url_for('armario.listarArmarios'))
     
 
 
@@ -36,7 +47,8 @@ def reservarArmario():
 
         fail = _(f"Existem uma ou mais reservas conflitantes com o período desejado:<br>{textoConflitos}")
 
-        return render_template("ListarArmarios.html", fail=fail)
+        flash(fail,'fail')
+        return redirect(url_for('armario.listarArmarios'))
     
     #Instanciando um objeto para inserir a reserva
     novaReserva = Reserva(inicio=inicioDate, fim=fimDate, armarioId= armarioId, usuarioId=usuarioId)
@@ -45,14 +57,14 @@ def reservarArmario():
         db.session.add(novaReserva)
         armario = Armario.query.get(armarioId)
         #Checa se o armário foi encontrado
-        if armario:
-            armario.disponibilidadeId = 3
-        else:
-            raise SQLAlchemyError(_("Armário não encontrado"))
+    
+        armario.disponibilidadeId = 3
         db.session.commit()
-        return render_template("ListarArmarios.html", success=_("Reserva feita com sucesso!"))
+        flash(_("Reserva feita com sucesso!"),'success')
+        return redirect(url_for('armario.listarArmarios'))
     except SQLAlchemyError as e:
         db.session.rollback()
-        return render_template("ListarArmarios.html", fail=e)
+        flash(_("Houve um problema com a sua reserva, tente novamente"),'fail')
+        return redirect(url_for('armario.listarArmarios'))
         
     

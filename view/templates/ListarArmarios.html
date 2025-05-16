@@ -64,9 +64,13 @@
             <button type="submit">Reservar</button>
             
         </form>
-        {% if fail %}
-            <p class="fail">{{fail}}</p>
-        {% endif %}
+       {% with messages = get_flashed_messages(with_categories=true) %}
+       {% if messages %}
+       {% for categoria, texto in messages %}
+       <p class="{{categoria}}">{{texto|safe}}</p>
+       {% endfor %}
+       {% endif %}
+       {% endwith %}
         <script src={{ url_for('static', filename='js/ListarArmarios.js') }}></script>
 
         

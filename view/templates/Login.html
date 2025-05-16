@@ -15,12 +15,13 @@
             <label for="senha">{{_('Senha:')}}</label>
             <input type="password" id="senha" name="senha" required>
             <button type="submit">{{_('Entrar')}}</button>
-            {% if success %}
-                <p class="success">{{success}}</p>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for categoria, texto in messages %}
+                <p class="{{categoria}}">{{texto|safe}}</p>
+            {% endfor %}
             {% endif %}
-            {% if fail %}
-                <p class="fail">{{fail}}</p>
-            {% endif %}
+            {% endwith %}
             <br>
             <br>
             <a href="/cadastro">{{_('Ainda não possui uma conta?')}}</a>
