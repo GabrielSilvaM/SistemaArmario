@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for, Blueprint, flash
 from flask_login import login_user, login_required, logout_user
 from bcrypt import hashpw, gensalt, checkpw
 from flask_babel import _
-#Importante o pacote de models e o db
+#Importando o pacote de models e o db
 from models import *
 
 usuario_bp = Blueprint('usuario',__name__)
@@ -66,7 +66,12 @@ def logout():
 @usuario_bp.route('/admin', methods=['GET'])
 @login_required
 def admin():
-    return render_template('PainelAdmin.html')
+    armarios = Armario.query.all()
+    capacidades = sorted({a.capacidade for a in armarios})
+    locais = sorted({a.localizacao for a in armarios})
+    disponibilidades = Disponibilidade.query.order_by(Disponibilidade.id).all()
+    reservas = Reserva.query.all()
+    return render_template('PainelAdmin.html',admin=True, reservas=reservas, armarios=armarios, capacidades=capacidades, locais=locais, disponibilidades=disponibilidades)
 
 
 

@@ -21,6 +21,7 @@
         </div>
         {% if usuarioAtual.is_authenticated %}
             <div id="usuario">
+                <a href="/reservas">{{usuarioAtual.nome}}<img id="user" src="{{ url_for('static', filename='img/user.png') }}"></a>
                 <a href="/logout">{{_('Logout')}}</a>
             </div>
         {% else %}

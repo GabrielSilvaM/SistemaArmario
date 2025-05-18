@@ -1,0 +1,51 @@
+{% if admin %}
+<div>
+    <label for="filtro-idarmario">{{_("ID Armário")}}</label>
+    <input name='filtro-idarmario'id="filtro-idarmario" type="number">
+    <label for="filtro-idusuario">{{_("ID Usuário")}}</label>
+    <input name='filtro-idusuario'id="filtro-idusuario" type="number">
+    <select id="filtro-capacidadeR">
+        <option value="">{{ _('Todas as capacidades') }}</option>
+        {% for c in capacidades %}
+        <option value="{{ c }}">{{ c }}</option>
+        {% endfor %}
+    </select>
+    <select id="filtro-localR">
+        <option value="">{{ _('Todos os locais') }}</option>
+        {% for l in locais %}
+        <option value="{{ l }}">{{ l }}</option>
+        {% endfor %}
+    </select>
+</div>
+{% endif %}
+<table id="tabela-reservas">
+    <thead>
+        <tr>
+            <th>{{_('ID Reserva')}}</th>
+            <th>{{_('Início')}}</th>
+            <th>{{_('Fim')}}</th>
+            <th>{{_('ID Armário')}}</th>
+            {% if admin %}
+            <th>{{_('ID Usuario')}}</th>
+            {% endif %}
+            <th>{{_('Localização')}}</th>
+            <th>{{_('Capacidade')}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in reservas %}
+        <tr onclick='selecionarLinha(this)'data-capacidade='{{r.armario.capacidade}}' data-localizacao="{{r.armario.localizacao}}" data-idarmario="{{r.armarioId}}" data-idusuario="{{r.usuarioId}}">
+            <td>{{r.id}}</td>
+            <td>{{r.inicio}}</td>
+            <td>{{r.fim}}</td>
+            <td>{{r.armarioId}}</td>
+            {% if admin %}
+            <td>{{r.usuarioId}}</td>
+            {% endif %}
+            <td>{{r.armario.localizacao}}</td>
+            <td>{{r.armario.capacidade}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script src={{ url_for('static', filename='js/TabelaReservas.js') }}></script>

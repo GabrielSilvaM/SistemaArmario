@@ -9,60 +9,18 @@
 {% block content %}
     <main>
         <h2>{{_('Lista de Armários')}}</h2>
-        <div>
-            <select id="filtro-capacidade">
-                <option value="">{{ _('Todas as capacidades') }}</option>
-                {% for c in capacidades %}
-                <option value="{{ c }}">{{ c }}</option>
-                {% endfor %}
-            </select>
-        
-            <select id="filtro-local">
-                <option value="">{{ _('Todos os locais') }}</option>
-                {% for l in locais %}
-                <option value="{{ l }}">{{ l }}</option>
-                {% endfor %}
-            </select>
-        
-            <select id="filtro-disponibilidade">
-                <option value="">{{ _('Todas as disponibilidades') }}</option>
-                {% for d in disponibilidades %}
-                <option value="{{ d.descricao }}">{{ d.descricao }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        
-        <table id="tabela-armarios">
-            <thead>
-                <tr>
-                    <th>ID</th><th>Capacidade</th><th>Localização</th><th>Disponibilidade</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for a in armarios %}
-                <tr onclick='selecionarLinha(this)'data-capacidade="{{ a.capacidade }}" data-local="{{ a.localizacao }}" data-disponibilidade="{{ a.disponibilidade.descricao }}">
-                    <td>{{ a.id }}</td>
-                    <td>{{ a.capacidade }}</td>
-                    <td>{{ a.localizacao }}</td>
-                    <td>{{ a.disponibilidade.descricao }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        {% include 'TabelaArmarios.html' %}
         <div>
             <button onclick="limparSelecao()">Limpar Seleção</button>
-            <button>Reservar Armário</button>
         </div>
-        <form action="/reservar" method="post">
-            <label>Id Usuário</label>
-            <input type="number" name="usuarioId">
-            <input name="armarioId" id='input-id-armario'hidden>
+        <form id="reservaForm" action="/reservar" method="post" style="display: none;" onsubmit="return confirmar()">
+            <input type="number" name="usuarioId" value={{usuarioAtual.id}} hidden>
+            <input name="armarioId" id='armarioId'hidden>
             <label>Inicio da Reserva</label>
-            <input type="date" name="inicio">
+            <input type="date" name="inicio" id="inicio">
             <label>Fim da Reserva</label>
-            <input type="date" name="fim">
+            <input type="date" name="fim" id="fim">
             <button type="submit">Reservar</button>
-            
         </form>
        {% with messages = get_flashed_messages(with_categories=true) %}
        {% if messages %}

@@ -1,0 +1,42 @@
+<div>
+            <select id="filtro-capacidade">
+                <option value="">{{ _('Todas as capacidades') }}</option>
+                {% for c in capacidades %}
+                <option value="{{ c }}">{{ c }}</option>
+                {% endfor %}
+            </select>
+        
+            <select id="filtro-local">
+                <option value="">{{ _('Todos os locais') }}</option>
+                {% for l in locais %}
+                <option value="{{ l }}">{{ l }}</option>
+                {% endfor %}
+            </select>
+        
+            <select id="filtro-disponibilidade">
+                <option value="">{{ _('Todas as disponibilidades') }}</option>
+                {% for d in disponibilidades %}
+                <option value="{{ d.descricao }}">{{ d.descricao }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <table id="tabela-armarios">
+            <thead>
+                <tr>
+                    <th>ID</th><th>Capacidade</th><th>Localização</th><th>Disponibilidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in armarios %}
+                <tr onclick='selecionarLinha(this)'data-capacidade="{{ a.capacidade }}" data-local="{{ a.localizacao }}" data-disponibilidade="{{ a.disponibilidade.descricao }}">
+                    <td>{{ a.id }}</td>
+                    <td>{{ a.capacidade }}</td>
+                    <td>{{ a.localizacao }}</td>
+                    <td>{{ a.disponibilidade.descricao }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <script src={{ url_for('static', filename='js/TabelaArmarios.js') }}></script>

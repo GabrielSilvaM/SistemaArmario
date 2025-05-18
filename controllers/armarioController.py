@@ -1,7 +1,7 @@
-from flask import render_template, request, redirect, url_for, Blueprint
+from flask import render_template, request, redirect, url_for, Blueprint, flash
 from flask_babel import _
 from flask_login import login_required
-#Importante o pacote de models e o db
+#Importando o pacote de models e o db
 from models import *
 
 armario_bp = Blueprint('armario',__name__)
@@ -15,7 +15,13 @@ def adicionarArmario():
     localizacao = request.form.get('localizacao')
     db.session.add(Armario(capacidade=capacidade,localizacao=localizacao))
     db.session.commit()
-    return render_template('PainelAdmin.html', success=_('Armário cadastrado com sucesso'))
+    flash(_("Armário cadastrado com sucesso"), 'success')
+    return redirect(url_for('usuario.admin'))
+
+@armario_bp.route('/editararmario', methods=['POST'])
+@login_required
+def editarArmario():
+    pass
 
 @armario_bp.route('/list')
 @login_required
@@ -28,4 +34,6 @@ def listarArmarios():
                            capacidades=capacidades,
                            locais=locais,
                            disponibilidades=disponibilidades)
+
+
     

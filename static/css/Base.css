@@ -32,6 +32,8 @@ header a{
     padding: 1rem;
     text-decoration: none;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    align-items: center;
 }
 header a:hover{
     scale: 1.05;
@@ -79,4 +81,11 @@ h2{
 }
 .fail{
     color: brown;
+}
+#user{
+    height: 1rem;
+    margin-left: 0.5rem;
+}
+.selecionada{
+    background-color: aquamarine;
 }

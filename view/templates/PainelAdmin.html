@@ -9,6 +9,7 @@
 {% block content %}
     <main>
         <h1>Painel do Administrador</h1>
+
         <form method="post" action="/add">
             <label>{{_('Capacidade')}}</label>
             <select name="capacidade">
@@ -23,8 +24,17 @@
             </select>
             <button type="submit">{{_('Cadastrar')}}</button>
         </form>
-        {% if success %}
-            <p class="success">{{success}}</p>
+        <h2>{{_('Todas os Armários')}}</h2>
+        {% include 'TabelaArmarios.html' %}
+        <h2>{{_('Todas as Reservas')}}</h2>
+        {% include 'TabelaReservas.html' %}
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for categoria, texto in messages %}
+        <p class="{{categoria}}">{{texto|safe}}</p>
+        {% endfor %}
         {% endif %}
+        {% endwith %}
     </main>
 {% endblock %}

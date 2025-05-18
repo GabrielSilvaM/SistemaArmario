@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, Blueprint, flash
-from flask_login import login_required
+from flask_login import login_required, current_user
 from flask_babel import _
-#Importante o pacote de models e o db
+#Importando o pacote de models e o db
 from models import *
 from datetime import datetime
 from sqlalchemy.exc import SQLAlchemyError
@@ -68,3 +68,46 @@ def reservarArmario():
         return redirect(url_for('armario.listarArmarios'))
         
     
+@reserva_bp.route('/reservas')
+@login_required
+def listarReservas():
+    reservas = Reserva.query.filter(Reserva.usuarioId == current_user.id).all()
+    return render_template('Reservas.html', reservas=reservas)
+
+@reserva_bp.route('/editar', methods=['POST'])
+@login_required
+def editarReserva():
+    reservaId = request.form.get('reservaId')
+    reserva = db.session.get(Reserva, reservaId)
+    if request.form.get('opcao') == 'cancelar':
+        #Buscando a reserva pelo id do formulário e deletando do banco
+        db.session.delete(reserva)
+        db.session.commit()
+
+        flash(_("Sua reserva foi cancelada com sucesso"),'success')
+        return redirect(url_for('reserva.listarReservas'))
+    elif request.form.get('opcao') == 'editar':
+        #Atribuindo novos valores ao inicio e fim da reserva
+        inicio = request.form.get('inicio')
+        fim = request.form.get('fim')
+        try:    
+            inicioDate = datetime.strptime(inicio, "%Y-%m-%d").date()
+            fimDate = datetime.strptime(fim, "%Y-%m-%d").date()
+            if inicioDate > fimDate:
+                flash(_("A data de início deve vir antes, selecione novamente as datas"),'fail')
+                return redirect(url_for('reserva.reservas'))
+
+        except ValueError as e:
+            flash(_(f"Erro na conversão de datas {e}"),'fail')
+            return redirect(url_for('reserva.reservas'))
+
+        reserva.inicio = inicioDate
+        reserva.fim = fimDate
+
+        db.session.commit()
+
+        flash(_("Sua reserva foi alterada com sucesso"),'success')
+        return redirect(url_for('reserva.listarReservas'))
+    else:
+        flash(_("Requisição inválida"),'fail')
+        return redirect(url_for('reserva.listarReservas'))

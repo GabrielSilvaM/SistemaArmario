@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}{{_('Minhas Reservas')}}{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href={{ url_for('static', filename='css/Reservas.css') }}>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h2>{{_('Minhas Reservas')}}</h2>
+        {% include 'TabelaReservas.html' %}
+        <form id="editarForm" action="/editar" method="post" style="display: none;" onsubmit="return confirmar()">
+            <input name="reservaId" id="reservaId" hidden>
+            <label for="opcao">{{_('Cancelar Reserva')}}</label>
+            <input onchange="atualizarForm()" type="radio" name="opcao" value="cancelar"> 
+            <label for="opcao">{{_('Alterar Reserva')}}</label>
+            <input onchange="atualizarForm()" type="radio" name="opcao" value="editar">
+            <input type="date" disabled name="inicio" id="inicio">
+            <input type="date" disabled name="fim" id="fim">
+            <button type="submit">{{_('Confirmar')}}</button>
+        </form>
+        <button onclick="limparSelecao()">Limpar Seleção</button>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for categoria, texto in messages %}
+        <p class="{{categoria}}">{{texto|safe}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <script src={{ url_for('static', filename='js/Reservas.js') }}></script>
+    </main>
+{% endblock %}
