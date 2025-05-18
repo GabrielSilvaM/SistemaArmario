@@ -33,8 +33,9 @@
         </tr>
     </thead>
     <tbody>
+        {% if reservas %}
         {% for r in reservas %}
-        <tr onclick='selecionarLinha(this)'data-capacidade='{{r.armario.capacidade}}' data-localizacao="{{r.armario.localizacao}}" data-idarmario="{{r.armarioId}}" data-idusuario="{{r.usuarioId}}">
+        <tr onclick='selecionarLinhaReserva(this)'data-capacidade='{{r.armario.capacidade}}' data-local="{{r.armario.localizacao}}" data-idarmario="{{r.armarioId}}" data-idusuario="{{r.usuarioId}}">
             <td>{{r.id}}</td>
             <td>{{r.inicio}}</td>
             <td>{{r.fim}}</td>
@@ -46,6 +47,22 @@
             <td>{{r.armario.capacidade}}</td>
         </tr>
         {% endfor %}
+        {% else %}
+        <tr>
+            <td>{{_('Nenhuma reserva encontrada')}}</td>
+        </tr>
+        {% endif %}
     </tbody>
 </table>
+<form id="editarForm" action="/editar" method="post" style="display: none;" onsubmit="return confirmarReserva()">
+            <input name="reservaId" id="reservaId" hidden>
+            <label for="opcao">{{_('Cancelar Reserva')}}</label>
+            <input onchange="atualizarForm()" type="radio" name="opcao" value="cancelar"> 
+            <label for="opcao">{{_('Alterar Reserva')}}</label>
+            <input onchange="atualizarForm()" type="radio" name="opcao" value="editar">
+            <input type="date" disabled name="inicio" id="inicio">
+            <input type="date" disabled name="fim" id="fim">
+            <button type="submit">{{_('Confirmar')}}</button>
+        </form>
+        <button onclick="limparSelecaoReserva()">Limpar Seleção</button>
 <script src={{ url_for('static', filename='js/TabelaReservas.js') }}></script>

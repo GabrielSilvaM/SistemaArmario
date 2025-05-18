@@ -16,3 +16,7 @@ class Config:
 
     if not SECRET_KEY:
         raise ValueError("Chave secreta faltando! Verifique o .env")
+    
+    #Configurações do agendador
+    SCHEDULER_API_ENABLED = False
+    SCHEDULER_TIMEZONE = 'America/Sao_Paulo'

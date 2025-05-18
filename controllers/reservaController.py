@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from flask_babel import _
 #Importando o pacote de models e o db
 from models import *
-from datetime import datetime
+from datetime import datetime, date
 from sqlalchemy.exc import SQLAlchemyError
 
 reserva_bp = Blueprint('reserva',__name__)
@@ -49,29 +49,34 @@ def reservarArmario():
 
         flash(fail,'fail')
         return redirect(url_for('armario.listarArmarios'))
-    
+
     #Instanciando um objeto para inserir a reserva
     novaReserva = Reserva(inicio=inicioDate, fim=fimDate, armarioId= armarioId, usuarioId=usuarioId)
     #Try Except para garantir que as alterações não sejam feitas pela metade, com um rollback em caso de erros do SQLAlchemy
     try:
         db.session.add(novaReserva)
         armario = Armario.query.get(armarioId)
-        #Checa se o armário foi encontrado
-    
-        armario.disponibilidadeId = 3
+        
+        #Checa se a reserva ja inicia no dia que foi feita e muda o status do armário
+        if inicioDate == date.today():
+            armario.disponibilidadeId=2
+        #Verifica se o armário está disponível no dia, para não marcar como reservado acidentalmente
+        elif armario.disponibilidadeId == 1:
+            armario.disponibilidadeId = 3
+            
         db.session.commit()
         flash(_("Reserva feita com sucesso!"),'success')
         return redirect(url_for('armario.listarArmarios'))
     except SQLAlchemyError as e:
         db.session.rollback()
-        flash(_("Houve um problema com a sua reserva, tente novamente"),'fail')
+        flash(_(f"Houve um problema com a sua reserva, tente novamente :{e}"),'fail')
         return redirect(url_for('armario.listarArmarios'))
         
     
 @reserva_bp.route('/reservas')
 @login_required
 def listarReservas():
-    reservas = Reserva.query.filter(Reserva.usuarioId == current_user.id).all()
+    reservas = Reserva.query.filter(Reserva.usuarioId == current_user.id, Reserva.finalizada == False).all()
     return render_template('Reservas.html', reservas=reservas)
 
 @reserva_bp.route('/editar', methods=['POST'])
@@ -81,7 +86,14 @@ def editarReserva():
     reserva = db.session.get(Reserva, reservaId)
     if request.form.get('opcao') == 'cancelar':
         #Buscando a reserva pelo id do formulário e deletando do banco
-        db.session.delete(reserva)
+        armarioId = reserva.armarioId
+        #Checa se é a ultima reserva desse armário e o marca como disponível caso seja
+        reservasRestantes = Reserva.query.filter(Reserva.armarioId == armarioId, Reserva.finalizada == False).all()
+        if len(reservasRestantes) <= 1:
+            armarioDisponivel = db.session.get(Armario, armarioId)
+            armarioDisponivel.disponibilidadeId = 1
+
+        reserva.finalizada = True
         db.session.commit()
 
         flash(_("Sua reserva foi cancelada com sucesso"),'success')

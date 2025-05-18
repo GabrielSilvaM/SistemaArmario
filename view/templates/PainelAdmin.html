@@ -9,25 +9,35 @@
 {% block content %}
     <main>
         <h1>Painel do Administrador</h1>
-
-        <form method="post" action="/add">
-            <label>{{_('Capacidade')}}</label>
-            <select name="capacidade">
-                <option value="Pequeno">{{_('Pequeno')}}</option>
-                <option value="Medio">{{_('Médio')}}</option>
-                <option value="Grande">{{_('Grande')}}</option>
-            </select>
-            <label>{{_('Localização')}}</label>
-            <select name="localizacao">
-                <option value="Sala 1">{{_('Sala 1')}}</option>
-                <option value='Sala 2'>{{_('Sala 2')}}</option>
-            </select>
-            <button type="submit">{{_('Cadastrar')}}</button>
-        </form>
-        <h2>{{_('Todas os Armários')}}</h2>
-        {% include 'TabelaArmarios.html' %}
-        <h2>{{_('Todas as Reservas')}}</h2>
-        {% include 'TabelaReservas.html' %}
+        <nav id="opcoesAdm">
+            <a href="#" data-painel="painelCadastrar">{{_('Cadastrar Armário')}}</a>
+            <a href="#" data-painel="painelArmarios">{{_('Listar Armários')}}</a>
+            <a href="#" data-painel="painelReservas">{{_('Listar Reservas')}}</a>
+        </nav>
+        <div class='painel ativo'id="painelCadastrar">
+            <form method="post" action="/add">
+                <label>{{_('Capacidade')}}</label>
+                <select name="capacidade">
+                    <option value="Pequeno">{{_('Pequeno')}}</option>
+                    <option value="Medio">{{_('Médio')}}</option>
+                    <option value="Grande">{{_('Grande')}}</option>
+                </select>
+                <label>{{_('Localização')}}</label>
+                <select name="localizacao">
+                    <option value="Sala 1">{{_('Sala 1')}}</option>
+                    <option value='Sala 2'>{{_('Sala 2')}}</option>
+                </select>
+                <button type="submit">{{_('Cadastrar')}}</button>
+            </form>
+        </div>
+        <div class='painel' id="painelArmarios" >
+            <h2>{{_('Todas os Armários')}}</h2>
+            {% include 'TabelaArmarios.html' %}
+        </div>
+        <div class='painel' id="painelReservas" >
+            <h2>{{_('Todas as Reservas')}}</h2>
+            {% include 'TabelaReservas.html' %}
+        </div>
         
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -36,5 +46,6 @@
         {% endfor %}
         {% endif %}
         {% endwith %}
+        <script src={{ url_for('static', filename='js/PainelAdmin.js') }}></script>
     </main>
 {% endblock %}

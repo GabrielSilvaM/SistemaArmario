@@ -2,6 +2,8 @@ import os
 from flask import Flask, render_template
 from flask_babel import Babel, _
 from flask_login import LoginManager, current_user
+from flask_apscheduler import APScheduler
+import datetime
 from bcrypt import gensalt, hashpw
 from config import Config
 from controllers.usuarioController import usuario_bp
@@ -19,6 +21,51 @@ babel = Babel(app)
 loginManager = LoginManager()
 loginManager.init_app(app)
 loginManager.login_view = 'usuario.login'
+
+#Inicializando o agendador 
+
+scheduler = APScheduler()
+scheduler.init_app(app)
+scheduler.start()
+
+#Definindo função de atualização de status
+def atualizarStatus():
+    with app.app_context():
+        print(_("Iniciando atualização de status de reservas diária"))
+        hoje = datetime.date.today()
+        try:
+            reservasIniciandoHoje = Reserva.query.filter(Reserva.inicio == hoje).all()
+            for reserva in reservasIniciandoHoje:
+                reserva.armario.disponibilidadeId = 2 
+            reservasEncerrando = Reserva.query.filter(Reserva.fim < hoje).all()
+            for reserva in reservasEncerrando:
+                armarioId = reserva.armarioId
+                #Checa se é a ultima reserva desse armário e o marca como disponível caso seja
+                reservasRestantes = Reserva.query.filter(Reserva.armarioId == armarioId, Reserva.finalizada != True, Reserva.id != reserva.id).all()
+                if len(reservasRestantes) ==0:
+                    armarioDisponivel = db.session.get(Armario, armarioId)
+                    armarioDisponivel.disponibilidadeId = 1
+                reserva.finalizada = True
+
+            db.session.commit()
+            horario = datetime.datetime.now()
+            print(_(f"Atualização realizada com sucesso às {horario.hour}:{horario.minute:02d}"))
+        except Exception as e:
+            print(_(f"Houve um erro na atualização diária: {e}"))
+
+#Configurando para executar função em um horário determinado
+scheduler.add_job(
+    id='atualizarStatus', 
+    func=atualizarStatus,      
+    #Trigger para horário específico
+    trigger='cron',
+    #Horário em que será executado                    
+    hour=3,                        
+    minute=33,            
+    #Substitui a tarefa caso ela já existir, para evitar bugs ao reiniciar o servidor   
+    replace_existing=True     
+)
+
 
 #Função para carregar o usuário da sessão
 @loginManager.user_loader

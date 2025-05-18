@@ -10,18 +10,7 @@
     <main>
         <h2>{{_('Lista de Armários')}}</h2>
         {% include 'TabelaArmarios.html' %}
-        <div>
-            <button onclick="limparSelecao()">Limpar Seleção</button>
-        </div>
-        <form id="reservaForm" action="/reservar" method="post" style="display: none;" onsubmit="return confirmar()">
-            <input type="number" name="usuarioId" value={{usuarioAtual.id}} hidden>
-            <input name="armarioId" id='armarioId'hidden>
-            <label>Inicio da Reserva</label>
-            <input type="date" name="inicio" id="inicio">
-            <label>Fim da Reserva</label>
-            <input type="date" name="fim" id="fim">
-            <button type="submit">Reservar</button>
-        </form>
+        
        {% with messages = get_flashed_messages(with_categories=true) %}
        {% if messages %}
        {% for categoria, texto in messages %}
@@ -29,7 +18,6 @@
        {% endfor %}
        {% endif %}
        {% endwith %}
-        <script src={{ url_for('static', filename='js/ListarArmarios.js') }}></script>
 
         
             

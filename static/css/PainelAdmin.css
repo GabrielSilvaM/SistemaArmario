@@ -53,3 +53,25 @@ th {
 .actions a {
     text-decoration: none;
 }
+
+
+.painel {
+    display: none;
+}
+
+
+.painel.ativo {
+    display: flex; 
+    flex-direction: column;
+}
+
+nav a{
+    color: rgb(0, 0, 0);
+    background-color: #00ADD6;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    text-decoration: none;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    align-items: center;
+}

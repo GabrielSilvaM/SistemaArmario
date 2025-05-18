@@ -42,7 +42,8 @@ header a:hover{
 main{
     background-color: rgb(95, 95, 95);
     height: 77%;
-    
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 footer{
     background-color: gray;

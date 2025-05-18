@@ -24,19 +24,41 @@
         <table id="tabela-armarios">
             <thead>
                 <tr>
-                    <th>ID</th><th>Capacidade</th><th>Localização</th><th>Disponibilidade</th>
+                    <th>{{_('ID')}}</th><th>{{_('Capacidade')}}</th><th>{{_('Localização')}}</th><th>{{_('Disponibilidade')}}</th>
                 </tr>
             </thead>
             <tbody>
+                {% if armarios %}
                 {% for a in armarios %}
-                <tr onclick='selecionarLinha(this)'data-capacidade="{{ a.capacidade }}" data-local="{{ a.localizacao }}" data-disponibilidade="{{ a.disponibilidade.descricao }}">
+                <tr onclick='selecionarLinhaArmario(this)'data-capacidade="{{ a.capacidade }}" data-local="{{ a.localizacao }}" data-disponibilidade="{{ a.disponibilidade.descricao }}">
                     <td>{{ a.id }}</td>
                     <td>{{ a.capacidade }}</td>
                     <td>{{ a.localizacao }}</td>
                     <td>{{ a.disponibilidade.descricao }}</td>
                 </tr>
                 {% endfor %}
+                {% else %}
+                <tr>
+                    <td>{{_('Nenhum armário encontrado')}}</td>
+                </tr>
+                {% endif %}
             </tbody>
         </table>
-        
+        <div>
+            <button onclick="limparSelecaoArmario()">{{_('Limpar Seleção')}}</button>
+        </div>
+        <form id="reservaForm" action="/reservar" method="post" style="display: none;" onsubmit="return confirmarArmario()">
+            {% if admin %}
+            <label for="usuarioId">{{_('Id do Usuário')}}</label>
+            <input type="number" name="usuarioId">
+            {% else %}
+            <input type="number" name="usuarioId" value={{usuarioAtual.id}} hidden>
+            {% endif %}
+            <input name="armarioId" id='armarioId'hidden>
+            <label>{{_('Inicio da Reserva')}}</label>
+            <input required type="date" name="inicio" id="inicioArmario">
+            <label>{{_('Fim da Reserva')}}</label>
+            <input required type="date" name="fim" id="fimArmario">
+            <button type="submit">{{_('Reservar')}}</button>
+        </form>
         <script src={{ url_for('static', filename='js/TabelaArmarios.js') }}></script>
