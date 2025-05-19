@@ -8,25 +8,25 @@
 
 {% block content %}
     <main>
-        <form method="post" action="/cadastro">
-            <h2>{{_('Cadastro de Usuário')}}</h2>
-            <label for="nome">{{_('Nome:')}}</label>
-            <input type="text" name="nome" required>
-            <label for="username">{{_('Nome de Usuário:')}}</label>
-            <input type="text" name="username" required>
-            <label for="senha">{{_('Senha:')}}</label>
-            <input type="password" name="senha" required>
-            <button type="submit">{{_('Cadastrar')}}</button>
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-            {% for categoria, texto in messages %}
-            <p class="{{categoria}}">{{texto|safe}}</p>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-            <br>
-            <br>
-            <a href="/login">{{_('Já possui uma conta?')}}</a>
-        </form>
+        <section class="mainContainer" id="loginsignup">
+            <form method="post" action="/cadastro">
+                <h2>{{_('Cadastro de Usuário')}}</h2>
+                <label for="nome">{{_('Nome:')}}</label>
+                <input type="text" name="nome" required>
+                <label for="username">{{_('Nome de Usuário:')}}</label>
+                <input type="text" name="username" required>
+                <label for="senha">{{_('Senha:')}}</label>
+                <input type="password" name="senha" required>
+                <button type="submit">{{_('Cadastrar')}}</button>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for categoria, texto in messages %}
+                <p class="{{categoria}}">{{texto|safe}}</p>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <a href="/login">{{_('Já possui uma conta?')}}</a>
+            </form>
+        </section>
     </main>
 {% endblock %}

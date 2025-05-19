@@ -70,7 +70,7 @@ def admin():
     capacidades = sorted({a.capacidade for a in armarios})
     locais = sorted({a.localizacao for a in armarios})
     disponibilidades = Disponibilidade.query.order_by(Disponibilidade.id).all()
-    reservas = Reserva.query.filter(Reserva.finalizada != True).all()
+    reservas = Reserva.query.filter(Reserva.finalizada == False).all()
     return render_template('PainelAdmin.html',admin=True, reservas=reservas, armarios=armarios, capacidades=capacidades, locais=locais, disponibilidades=disponibilidades)
 
 

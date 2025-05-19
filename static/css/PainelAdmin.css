@@ -1,60 +1,4 @@
 
-table {
-    border-collapse: collapse;
-    width: 80%;
-    background-color: white;
-    margin-bottom: 30px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-th, td {
-    padding: 12px;
-    border: 1px solid #ccc;
-    text-align: center;
-}
-
-th {
-    background-color: #007bff;
-    color: white;
-}
-
-.btn {
-    padding: 10px 18px;
-    margin: 5px;
-    font-size: 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    color: white;
-}
-
-.excluir {
-    background-color: #dc3545;
-}
-
-.registrar {
-    background-color: #28a745;
-}
-
-.voltar {
-    background-color: #6c757d;
-}
-
-.btn:hover {
-    opacity: 0.9;
-}
-
-.actions {
-    margin-top: 20px;
-    display: flex;
-    gap: 15px;
-}
-
-.actions a {
-    text-decoration: none;
-}
-
-
 .painel {
     display: none;
 }
@@ -66,12 +10,35 @@ th {
 }
 
 nav a{
-    color: rgb(0, 0, 0);
-    background-color: #00ADD6;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    text-decoration: none;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: inline-block; 
+    padding: 10px 15px;
+    margin-right: 10px; 
+    text-decoration: none; 
+    color: #F8F9FA; 
+    background-color: transparent; 
+    border: none; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-bottom 0.3s ease; 
+    border-bottom: 2px solid transparent;
+}
+nav a:hover {
+    background-color: rgba(52, 152, 219, 0.1); 
+    border-bottom-color: #3498DB; 
+}
+.selecionado {
+    font-weight: bold; 
+    border-bottom-color: #3498DB; 
+}
+#painelCadastrar select{
+    background-color: #343A40;
+    color: #F8F9FA;
+}
+#painelCadastrar form{
     display: flex;
-    align-items: center;
+    align-items: start;
+    width: 100%;
+    padding: 1rem;
+}
+#painelCadastrar{
+    width: 100%;
 }

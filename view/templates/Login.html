@@ -8,24 +8,24 @@
 
 {% block content %}
     <main>
-        <form method="post" action="/login">
-            <h2>{{_('Login de Usuários')}}</h2>
-            <label for="username">{{_('Login:')}}</label>
-            <input type="text" id="username" name="username" required>
-            <label for="senha">{{_('Senha:')}}</label>
-            <input type="password" id="senha" name="senha" required>
-            <button type="submit">{{_('Entrar')}}</button>
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-            {% for categoria, texto in messages %}
-                <p class="{{categoria}}">{{texto|safe}}</p>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-            <br>
-            <br>
-            <a href="/cadastro">{{_('Ainda não possui uma conta?')}}</a>
-        </form>
+        <section class="mainContainer" id="loginsignup">
+            <form method="post" action="/login">
+                <h2>{{_('Login de Usuários')}}</h2>
+                <label for="username">{{_('Login:')}}</label>
+                <input type="text" id="username" name="username" required>
+                <label for="senha">{{_('Senha:')}}</label>
+                <input type="password" id="senha" name="senha" required>
+                <button type="submit">{{_('Entrar')}}</button>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for categoria, texto in messages %}
+                    <p class="{{categoria}}">{{texto|safe}}</p>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <a href="/cadastro">{{_('Ainda não possui uma conta?')}}</a>
+            </form>
+        </section>
     </main>
 {% endblock %}
 

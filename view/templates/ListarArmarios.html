@@ -3,23 +3,14 @@
 {% block title %}{{_('Listar Armarios')}}{% endblock %}
 
 {% block head_extra %}
-    <link rel="stylesheet" href={{ url_for('static', filename='css/ListarArmarios.css') }}>
+    <link rel="stylesheet" href={{ url_for('static', filename='css/Tabelas.css') }}>
 {% endblock %}
 
 {% block content %}
     <main>
+        <div class="mainContainer">
         <h2>{{_('Lista de Armários')}}</h2>
         {% include 'TabelaArmarios.html' %}
-        
-       {% with messages = get_flashed_messages(with_categories=true) %}
-       {% if messages %}
-       {% for categoria, texto in messages %}
-       <p class="{{categoria}}">{{texto|safe}}</p>
-       {% endfor %}
-       {% endif %}
-       {% endwith %}
-
-        
-            
+        </div>            
     </main>
 {% endblock %}  

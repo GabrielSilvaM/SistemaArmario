@@ -7,9 +7,12 @@ function alternarPainel(e){
     for(let i = 0; i < paineis.length; i++){
         paineis[i].classList.remove('ativo');
     }
+    for(let i = 0; i<opcoesAdm.length; i++){
+        opcoesAdm[i].classList.remove('selecionado');
+    }
     const painelAtual = document.getElementById(e.target.dataset.painel)
-    console.log(painelAtual)
     painelAtual.classList.add('ativo')
+    e.target.classList.add('selecionado')
    
 }
 for(let i = 0; i<opcoesAdm.length; i++){

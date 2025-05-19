@@ -28,15 +28,11 @@ function selecionarLinhaArmario(linha) {
     const idArmario = linha.querySelectorAll('td')[0].textContent;
     //Define o campo oculto para o ID correto no form
     document.getElementById('armarioId').value = idArmario;
-    //Faz aparecer o form de reserva quando tem um armário selecionado
-    document.getElementById('reservaForm').style.display = ''
 }
 function limparSelecaoArmario(){
     let tabelaArmarios = document.getElementById('tabela-armarios')
     tabelaArmarios.querySelectorAll('tr').forEach(tr => tr.classList.remove('selecionada'));
     document.getElementById('armarioId').value = '';
-    //Oculta o form quando limpar a seleção
-    document.getElementById('reservaForm').style.display = 'none'
 }
 function confirmarArmario(){
     const idArmario = document.getElementById('armarioId').value

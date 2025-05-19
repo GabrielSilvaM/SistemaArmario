@@ -5,14 +5,27 @@ body{
     height: 100%;
     margin: 0;
     background-color: rgb(82, 82, 82);
+    display: flex;
+    flex-direction: column;
 }
 header{
-    height: 13%;
     width: 100%;
-    background-color: #0072D6;
+    min-height: 7rem; 
+    height: 13vh;
+    max-height: 13vh;
+    background-color: #1D2A35;
     display: flex;
     align-items: center; 
     flex-wrap: wrap;
+}
+footer{
+    background-color: #1D2A35;
+    height: 10vh;
+    max-height: 10vh;
+    min-height: 5rem; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #rotas{
     display: flex;
@@ -27,39 +40,39 @@ header{
 }
 header a{
     color: rgb(0, 0, 0);
-    background-color: #00ADD6;
+    background-color: #3498DB;
     border-radius: 0.5rem;
     padding: 1rem;
     text-decoration: none;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: flex;
     align-items: center;
+    transition: scale 0.2s ease-in-out;
 }
 header a:hover{
     scale: 1.05;
     box-shadow: rgba(0, 0, 0, 0.35) 5px 10px 20px;
 }
 main{
-    background-color: rgb(95, 95, 95);
-    height: 77%;
-    overflow-y: scroll;
-    scrollbar-width: none;
-}
-footer{
-    background-color: gray;
-    height: 10%;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    max-height: 77vh;
+    background-color: #2C3E50;
+    flex: 1;
     justify-content: center;
+    align-items: center;
 }
-footer #logo{
-    height: 4rem;
+footer #logoFooter{
+    height: 5rem;
     opacity: 20%;
-    margin-left: 4rem;
-    margin-right: 4rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
+footer p{
+    color: #6C757D;
 }
 #logo{
-    height: 5rem;
+    height: 3.5rem;
     margin-left: 2rem;
     
 }
@@ -78,15 +91,112 @@ h2{
     margin: 0;
 }
 .success{
-    color: green;
+    color: #2ecc48 !important;
 }
 .fail{
-    color: brown;
+    color: #f03737 !important;
 }
 #user{
     height: 1rem;
     margin-left: 0.5rem;
 }
 .selecionada{
-    background-color: aquamarine;
+    background-color: #00ADD6;
+}
+tr{
+    transition: background-color 0.2s ease-in-out; 
+}
+.mainContainer {
+    max-width: 95%;
+    max-height: 65vh;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.03); 
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    color: #ecf0f1; 
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    line-height: 1.6;
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    
+}
+
+.mainContainer h1 {
+    font-size: 2rem;
+    color: #00BFFF; 
+    justify-self: center;
+    margin: 0;
+}
+.mainContainer h3{
+    margin: 0;
+}
+
+.mainContainer p {
+    font-size: 1.1rem;
+    color: #dcdcdc;
+}
+
+button{
+    padding: 8px;
+    border: 1px solid #495057;
+    border-radius: 4px;
+    background-color: #343A40; 
+    color: #F8F9FA; 
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; 
+}
+button:hover{
+    outline: none;
+    border-color: #3498DB;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25); 
+}
+input {
+    padding: 8px;
+    border: 1px solid #495057;
+    border-radius: 4px;
+    background-color: #343A40; 
+    color: #F8F9FA; 
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; 
+}
+input:disabled {
+    border: 1px solid #6C757D; 
+    background-color: #5a5a5a; 
+    color: #ADB5BD; 
+    cursor: not-allowed; 
+    opacity: 0.8; 
+}
+input[type="number"] {
+    width: 4rem;
+}
+input:focus {
+    outline: none;
+    border-color: #3498DB;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25); 
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;}
+
+#loginsignup a{
+    color: #3498DB;
+}
+
+.inputELabel{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.containerForm{
+    width: 20rem;
+}
+.containerForm form{
+    align-items: start;
 }

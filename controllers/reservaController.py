@@ -20,6 +20,12 @@ def reservarArmario():
         flash(_("Houve um problema com a sua reserva, verifique os campos e tente novamente"),'fail')
         return redirect(url_for('armario.listarArmarios'))
 
+    #Para previnir problemas com não administradores fazendo reservas para outros usuários
+    if int(usuarioId) != current_user.id and current_user.admin == False:
+        flash(_("Você só pode fazer reservas para o seu usuário"),'fail')
+        return redirect(url_for('armario.listarArmarios'))
+
+
     #Convertendo string para datas, passar no formato YYYY-MM-DD
     #Tratando possíveis erros de formato
     try:    
@@ -84,6 +90,11 @@ def listarReservas():
 def editarReserva():
     reservaId = request.form.get('reservaId')
     reserva = db.session.get(Reserva, reservaId)
+    #Para previnir problemas com não administradores editando reservas de outros usuários
+    if reserva.usuario.id != current_user.id and current_user.admin == False:
+        flash(_("Você só pode alterar reservas feitas por você"),'fail')
+        return redirect(url_for('reserva.listarReservas'))
+
     if request.form.get('opcao') == 'cancelar':
         #Buscando a reserva pelo id do formulário e deletando do banco
         armarioId = reserva.armarioId

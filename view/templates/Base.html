@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Sistema de Armários{% endblock %}</title>
+    <title>{% block title %}Gerenciador de Armários{% endblock %}</title>
 
     <link rel="stylesheet" href={{ url_for('static', filename='css/Base.css') }}>
     {% block head_extra %}{% endblock %}
@@ -35,9 +35,9 @@
     {% block content %}{% endblock %}
 
     <footer>
-        <img id="logo" src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
-        <p>&copy; 2025 Sistema de Armários</p>
-        <img id="logo" src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+        <img id="logoFooter" src="{{ url_for('static', filename='img/logoFooter.png') }}" alt="Logo">
+        <p>&copy; 2025 Gerenciador de Armários</p>
+        <img id="logoFooter" src="{{ url_for('static', filename='img/logoFooter.png') }}" alt="Logo">
     </footer>
 </body>
 </html>

@@ -8,10 +8,13 @@
 
 {% block content %}
     <main>
-        <h1>Página Inicial</h1>
-        <a href="LoginAdmin.html" class="btn admin">Admin</a>
-        <a href="VisualizacaoDeArmario.html" class="btn visual">Visualização de Armário</a>
-        <a href="RegistroArmario.html" class="btn registro">Registro de Armário</a>
-        <a href="sair.html" class="btn sair">Sair</a>
+        <section class="mainContainer" id="landing">
+            <h1>Bem-vindo ao Gerenciador de Armários!</h1>
+            <h3>Seu Espaço Pessoal no Trabalho, Simplificado e Seguro.</h3>
+            <div class="textContainer">
+                <p> Em um ambiente de trabalho dinâmico, sabemos que a organização e a segurança de seus pertences são fundamentais para o seu bem-estar e produtividade. Nosso sistema foi cuidadosamente desenvolvido para oferecer exatamente isso: uma solução prática, eficiente e totalmente segura para você guardar seus itens pessoais enquanto se dedica às suas atividades diárias.<br>Com o Gerenciador de Armários, o processo é intuitivo e rápido. Em poucos cliques, você pode visualizar a disponibilidade dos armários em tempo real, reservar o período que melhor se adapta à sua necessidade – seja por um dia, uma semana ou conforme a política da empresa – e ter a garantia de que seu espaço estará pronto e esperando por você. Chega de se preocupar com onde deixar bolsas, casacos ou equipamentos pessoais.<br>Nossa plataforma não apenas elimina a preocupação com a segurança, mas também otimiza o espaço físico da empresa, contribuindo para um ambiente mais organizado e agradável para todos. Ao utilizar o sistema, você ganha mais foco, tranquilidade e praticidade no seu dia a dia profissional.<br>Acesse agora e descubra a facilidade de ter seu armário garantido, liberando você para se concentrar no que realmente importa: seu trabalho.</p>
+                <img id="landingImg" src="{{ url_for('static', filename='img/landing.png') }}" alt="Armarios">
+            </div>
+        </section>
     </main>
 {% endblock %}

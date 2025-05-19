@@ -41,8 +41,6 @@ function limparSelecaoReserva(){
     tabelaReserva.querySelectorAll('tr').forEach(tr => tr.classList.remove('selecionada'));
     document.querySelectorAll('tr').forEach(tr => tr.classList.remove('selecionada'));
     document.getElementById('reservaId').value = '';
-    //Oculta o form quando limpar a seleção
-    document.getElementById('editarForm').style.display = 'none'
 }
 function confirmarReserva(){
     //Caixa de confirmação
