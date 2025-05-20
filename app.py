@@ -4,6 +4,7 @@ from flask_babel import Babel, _
 from flask_login import LoginManager, current_user
 from flask_apscheduler import APScheduler
 import datetime
+import shutil
 from bcrypt import gensalt, hashpw
 from config import Config
 from controllers.usuarioController import usuario_bp
@@ -28,11 +29,13 @@ scheduler = APScheduler()
 scheduler.init_app(app)
 scheduler.start()
 
-#Definindo função de atualização de status
-def atualizarStatus():
+#Definindo função de atualização de status e backup do banco de dados
+def atualizarStatusEBackup():
     with app.app_context():
         print(_("Iniciando atualização de status de reservas diária"))
         hoje = datetime.date.today()
+        agora = datetime.datetime.now()
+        horario_backup = agora.strftime("%Y%m%d_%H%M%S")
         try:
             reservasIniciandoHoje = Reserva.query.filter(Reserva.inicio == hoje).all()
             for reserva in reservasIniciandoHoje:
@@ -52,11 +55,26 @@ def atualizarStatus():
             print(_(f"Atualização realizada com sucesso às {horario.hour}:{horario.minute:02d}"))
         except Exception as e:
             print(_(f"Houve um erro na atualização diária: {e}"))
+        # Backup do Banco de Dados
+        try:
+            print(_("Iniciando backup do banco de dados..."))
+            backup_dir = app.config['BACKUP_DIR']
+            database_file = app.config['DATABASE_FILE']
+            backup_file_path = os.path.join(backup_dir, f"backup_{horario_backup}.db")
+
+            os.makedirs(backup_dir, exist_ok=True)
+            shutil.copy2(database_file, backup_file_path)
+            print(_(f"Backup do banco de dados realizado com sucesso em: {backup_file_path}"))
+
+        except Exception as e:
+            print(_(f"Erro ao realizar backup do banco de dados: {e}"))
+    print(_("Atualização e backup concluídos com sucesso"))
+        
 
 #Configurando para executar função em um horário determinado
 scheduler.add_job(
-    id='atualizarStatus', 
-    func=atualizarStatus,      
+    id='atualizarStatusEBackup', 
+    func=atualizarStatusEBackup,      
     #Trigger para horário específico
     trigger='cron',
     #Horário em que será executado                    

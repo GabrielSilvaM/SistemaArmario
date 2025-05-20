@@ -14,11 +14,11 @@
         
         <h1>Painel do Administrador</h1>
         <nav id="opcoesAdm">
-            <a href="#" data-painel="painelCadastrar">{{_('Cadastrar Armário')}}</a>
+            <a href="#" class="selecionado" data-painel="painelCadastrar">{{_('Cadastrar Armário')}}</a>
             <a href="#" data-painel="painelArmarios">{{_('Listar Armários')}}</a>
             <a href="#" data-painel="painelReservas">{{_('Listar Reservas')}}</a>
         </nav>
-        <div class='painel ativo'id="painelCadastrar">
+        <div class='painel ativo 'id="painelCadastrar">
             <form method="post" action="/add">
                 <div class="inputELabel">
                     <label for="capacidade">{{_('Capacidade:')}}</label>

@@ -20,3 +20,9 @@ class Config:
     #Configurações do agendador
     SCHEDULER_API_ENABLED = False
     SCHEDULER_TIMEZONE = 'America/Sao_Paulo'
+
+    #Configurações para backup diário
+    BASEDIR = os.path.abspath(os.path.dirname(__file__))
+    INSTANCE_DIR = os.path.join(BASEDIR, 'instance')
+    DATABASE_FILE = os.path.join(INSTANCE_DIR, 'armarios.db')
+    BACKUP_DIR = os.path.join(INSTANCE_DIR, 'backups')
