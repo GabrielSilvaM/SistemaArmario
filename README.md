@@ -22,6 +22,11 @@ $source ./venv/bin/activate
 ```
 Ao ativar corretamente, o prompt do terminal exibirá o nome do ambiente (ex: (.venv)).
 
+Instalação das dependências
+Com o ambiente virtual ativado, instale as bibliotecas necessárias usando:
+```bash
+pip install -r requirements.txt
+```
 Cria uma pasta .env dentro da raiz do projeto, pode ser qualquer comando de criação de arquivo e abrir no editor da sua preferencia. Ex:
 ```bash
 $sudo nano .env
@@ -31,12 +36,6 @@ Dentro do arquivo .emv coloque apenas essa linha:
 SECRET_KEY='sua-chave'
 ```
 O arquivo `.env` não deve ser incluído no controle de versão para garantir a segurança da aplicação e seguir boas práticas.
-
-Instalação das dependências
-Com o ambiente virtual ativado, instale as bibliotecas necessárias usando:
-```bash
-pip install -r requirements.txt
-```
 
 
 ### 2.1 Criar e ativar o ambiente virtual (WIndows)
