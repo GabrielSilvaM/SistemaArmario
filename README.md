@@ -11,7 +11,7 @@ As principais tecnologias utilizadas no projeto foram Python e suas bibliotecas 
 Após clonar o repositório, vamos preparar as bibliotecas necessárias.  
 É recomendado o uso de um ambiente virtual para manter as dependências isoladas. Caso prefira instalar diretamente no sistema, pode pular esta etapa.
 
-### 2 Preparação/Configuração do ambiente Linux | Instalação de Dependências e configuração da .ev
+### 2 Preparação/Configuração do ambiente Linux | Instalação de Dependências e configuração da .env
 No terminal do Linux, execute o comando para criar o ambiente virtual:
 ```bash
 $python3 -m venv ./venv
