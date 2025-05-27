@@ -11,7 +11,35 @@ As principais tecnologias utilizadas no projeto foram Python e suas bibliotecas 
 Após clonar o repositório, vamos preparar as bibliotecas necessárias.  
 É recomendado o uso de um ambiente virtual para manter as dependências isoladas. Caso prefira instalar diretamente no sistema, pode pular esta etapa.
 
-### 2. Criar e ativar o ambiente virtual
+### 2 Preparação/Configuração do ambiente Linux | Instalação de Dependências e configuração da .ev
+No terminal do Linux, execute o comando para criar o ambiente virtual:
+```bash
+$python3 -m venv ./venv
+```
+Ative o ambiente virtual com o Comando: 
+```bash
+$source ./venv/bin/activate
+```
+Ao ativar corretamente, o prompt do terminal exibirá o nome do ambiente (ex: (.venv)).
+
+Cria uma pasta .env dentro da raiz do projeto, pode ser qualquer comando de criação de arquivo e abrir no editor da sua preferencia. Ex:
+```bash
+$sudo nano .env
+```
+Dentro do arquivo .emv coloque apenas essa linha:
+```bash
+SECRET_KEY='sua-chave'
+```
+O arquivo `.env` não deve ser incluído no controle de versão para garantir a segurança da aplicação e seguir boas práticas.
+
+Instalação das dependências
+Com o ambiente virtual ativado, instale as bibliotecas necessárias usando:
+```bash
+pip install -r requirements.txt
+```
+
+
+### 2.1 Criar e ativar o ambiente virtual (WIndows)
 
 No terminal do VS Code, execute o comando para criar o ambiente virtual:
 
@@ -61,33 +89,6 @@ SECRET_KEY='sua-chave'
 ```
 
 O arquivo `.env` não deve ser incluído no controle de versão para garantir a segurança da aplicação e seguir boas práticas.
-
-### 2.1 Preparação/Configuração do ambiente Linux
-No terminal do Linux, execute o comando para criar o ambiente virtual:
-```bash
-$python3 -m venv ./venv
-```
-Ative o ambiente virtual com o Comando: 
-```bash
-$source ./venv/bin/activate
-```
-Ao ativar corretamente, o prompt do terminal exibirá o nome do ambiente (ex: (.venv)).
-
-Cria uma pasta .env dentro da raiz do projeto, pode ser qualquer comando de criação de arquivo e abrir no editor da sua preferencia. Ex:
-```bash
-$sudo nano .env
-```
-Dentro do arquivo .emv coloque apenas essa linha:
-```bash
-SECRET_KEY='sua-chave'
-```
-O arquivo `.env` não deve ser incluído no controle de versão para garantir a segurança da aplicação e seguir boas práticas.
-
-Instalação das dependências
-Com o ambiente virtual ativado, instale as bibliotecas necessárias usando:
-```bash
-pip install -r requirements.txt
-```
 
 ### 5. Executar a aplicação
 
