@@ -62,8 +62,8 @@ SECRET_KEY='sua-chave'
 
 O arquivo `.env` não deve ser incluído no controle de versão para garantir a segurança da aplicação e seguir boas práticas.
 
-### Preparação/Configuração do ambiente Linux
-No terminal do Linux, execute o camando para criar o ambiente virtual:
+### 2.1 Preparação/Configuração do ambiente Linux
+No terminal do Linux, execute o comando para criar o ambiente virtual:
 ```bash
 $python3 -m venv ./venv
 ```
