@@ -31,7 +31,7 @@ Cria uma pasta .env dentro da raiz do projeto, pode ser qualquer comando de cria
 ```bash
 $sudo nano .env
 ```
-Dentro do arquivo .emv coloque apenas essa linha:
+Dentro do arquivo .env coloque apenas essa linha:
 ```bash
 SECRET_KEY='sua-chave'
 ```
