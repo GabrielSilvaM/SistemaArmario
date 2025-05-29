@@ -2,21 +2,21 @@
     <div class="containerTabelas">
         <div class="filtros">
             <select id="filtro-capacidade">
-                <option value="">{{ _('Todas as capacidades') }}</option>
+                <option value="">{{ _('Capacidade') }}</option>
                 {% for c in capacidades %}
                 <option value="{{ c }}">{{ c }}</option>
                 {% endfor %}
             </select>
 
             <select id="filtro-local">
-                <option value="">{{ _('Todos os locais') }}</option>
+                <option value="">{{ _('Locais') }}</option>
                 {% for l in locais %}
                 <option value="{{ l }}">{{ l }}</option>
                 {% endfor %}
             </select>
 
             <select id="filtro-disponibilidade">
-                <option value="">{{ _('Todas as disponibilidades') }}</option>
+                <option value="">{{ _('Disponibilidade') }}</option>
                 {% for d in disponibilidades %}
                 <option value="{{ d.descricao }}">{{ d.descricao }}</option>
                 {% endfor %}

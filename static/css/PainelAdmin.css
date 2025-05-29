@@ -9,7 +9,7 @@
     flex-direction: column;
 }
 
-nav a{
+#opcoesAdm a{
     display: inline-block; 
     padding: 10px 15px;
     margin-right: 10px; 
@@ -21,13 +21,13 @@ nav a{
     transition: background-color 0.3s ease, border-bottom 0.3s ease; 
     border-bottom: 2px solid transparent;
 }
-nav a:hover {
+#opcoesAdm a:hover {
     background-color: rgba(52, 152, 219, 0.1); 
     border-bottom-color: #3498DB; 
 }
 .selecionado {
     font-weight: bold; 
-    border-bottom-color: #3498DB; 
+    border-bottom-color: #3498DB !important; 
 }
 #painelCadastrar select{
     background-color: #343A40;

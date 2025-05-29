@@ -16,7 +16,6 @@ header{
     background-color: #1D2A35;
     display: flex;
     align-items: center; 
-    flex-wrap: wrap;
 }
 footer{
     background-color: #1D2A35;
@@ -38,7 +37,7 @@ footer{
     padding: 1rem;
     margin-left:auto;
 }
-header a{
+header a, .sidebar a{
     color: rgb(0, 0, 0);
     background-color: #3498DB;
     border-radius: 0.5rem;
@@ -49,14 +48,13 @@ header a{
     align-items: center;
     transition: scale 0.2s ease-in-out;
 }
-header a:hover{
+header a:hover, .sidebar a:hover{
     scale: 1.05;
     box-shadow: rgba(0, 0, 0, 0.35) 5px 10px 20px;
 }
 main{
     display: flex;
     flex-direction: column;
-    max-height: 77vh;
     background-color: #2C3E50;
     flex: 1;
     justify-content: center;
@@ -108,7 +106,6 @@ tr{
 }
 .mainContainer {
     max-width: 95%;
-    max-height: 65vh;
     margin: 0 auto;
     padding: 2rem;
     background-color: rgba(255, 255, 255, 0.03); 
@@ -199,4 +196,51 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 .containerForm form{
     align-items: start;
+}
+
+.paginas{
+    display: flex;
+    width: 100%;
+}
+.menu-btn{
+    display: none;
+}
+.sidebar{
+    display: none;
+}
+
+@media (max-width: 850px) {
+    .menu-btn{
+        display: block;
+        z-index: 1100;
+        color: #fff;
+        border: none;
+        padding: 1rem;
+        cursor: pointer;
+        margin-left: 1rem;
+    }
+    .paginas{
+        display: none;
+    }
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 12rem;           
+        height: 100vh;
+        background-color: #2C3E50;
+        padding: 1rem;
+        padding-top: 6rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .sidebar.active {
+  transform: translateX(0);
+    }
+
 }

@@ -11,13 +11,13 @@
                 <input name='filtro-idusuario'id="filtro-idusuario" type="number">
             </div>
             <select id="filtro-capacidadeR">
-                <option value="">{{ _('Todas as capacidades') }}</option>
+                <option value="">{{ _('Capacidade') }}</option>
                 {% for c in capacidades %}
                 <option value="{{ c }}">{{ c }}</option>
                 {% endfor %}
             </select>
             <select id="filtro-localR">
-                <option value="">{{ _('Todos os locais') }}</option>
+                <option value="">{{ _('Locais') }}</option>
                 {% for l in locais %}
                 <option value="{{ l }}">{{ l }}</option>
                 {% endfor %}
