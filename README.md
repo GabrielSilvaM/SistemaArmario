@@ -1,3 +1,5 @@
+# Sistema desenvolvido por: Gabriel Silva Marques, Leonardo Silva Marques e Caio Lima Vicente
+
 # Sistema de Gerenciamento de Armários
 
 Este sistema foi desenvolvido para oferecer uma solução eficiente a empresas que desejam facilitar o gerenciamento dos armários disponíveis. O objetivo principal é permitir que administradores controlem o cadastro e a disponibilidade dos armários, enquanto usuários podem realizar operações como cadastro, reserva, renovação e cancelamento de maneira prática, intuitiva e segura.
