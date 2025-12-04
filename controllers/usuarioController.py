@@ -1,9 +1,18 @@
 from flask import render_template, request, redirect, url_for, Blueprint, flash
 from flask_login import login_user, login_required, logout_user
-from bcrypt import hashpw, gensalt, checkpw
+from bcrypt import checkpw
 from flask_babel import _
-#Importando o pacote de models e o db
 from models import *
+from repositories.usuarioRepository import UsuarioRepository
+from repositories.armarioRepository import ArmarioRepository
+from repositories.reservaRepository import ReservaRepository
+from repositories.baseRepository import BaseRepository
+from factories.usuarioFactory import UsuarioFactory
+
+usuario_repository = UsuarioRepository()
+armario_repository = ArmarioRepository()
+reserva_repository = ReservaRepository()
+disponibilidade_repository = BaseRepository(Disponibilidade)
 
 usuario_bp = Blueprint('usuario',__name__)
 
@@ -15,7 +24,7 @@ def login():
         username = request.form.get('username')
         senha = request.form.get('senha')
         #Verificando se o usuário está cadastrado
-        busca = Usuario.query.filter_by(nomeDeUsuario=username).first()
+        busca = usuario_repository.get_by_username(username)
         #Comparando os hashes das senhas e se o usuário existe
         if busca and checkpw(senha.encode('utf-8'), busca.senha):
             #Função de login do flask-login
@@ -38,16 +47,14 @@ def cadastro():
         username = request.form.get('username')
         senha = request.form.get('senha')
         #Verificando se o usuário ja existe e retorna que o usuário ja está cadastrado
-        if Usuario.query.filter_by(nomeDeUsuario=username).first():
+        if usuario_repository.get_by_username(username):
             flash(_("Usuário já cadastrado"),'fail')
             return redirect(url_for('usuario.cadastro'))
-        #Gerando salt e hash, usando 10 rounds por conta de performance, de 10 pra 12 deu ~200ms de diferença no tempo de resposta
-        salt = gensalt(rounds=10)
-        senhaHash = hashpw(senha.encode('utf-8'), salt)
-        #Criando objeto e executando o sql
-        novoUsuario = Usuario(nome=nome, nomeDeUsuario=username,senha=senhaHash)
-        db.session.add(novoUsuario)
-        db.session.commit()
+        
+        #Criando objeto usando Factory
+        novoUsuario = UsuarioFactory.create_usuario(nome, username, senha)
+        usuario_repository.add(novoUsuario)
+        
         flash(_("Cadastro realizado com sucesso"),'success')
         return redirect(url_for('usuario.login'))
 
@@ -66,11 +73,11 @@ def logout():
 @usuario_bp.route('/admin', methods=['GET'])
 @login_required
 def admin():
-    armarios = Armario.query.all()
+    armarios = armario_repository.get_all()
     capacidades = sorted({a.capacidade for a in armarios})
     locais = sorted({a.localizacao for a in armarios})
-    disponibilidades = Disponibilidade.query.order_by(Disponibilidade.id).all()
-    reservas = Reserva.query.filter(Reserva.finalizada == False).all()
+    disponibilidades = disponibilidade_repository.get_all()
+    reservas = reserva_repository.get_active_reservations()
     return render_template('PainelAdmin.html',admin=True, reservas=reservas, armarios=armarios, capacidades=capacidades, locais=locais, disponibilidades=disponibilidades)
 
 
