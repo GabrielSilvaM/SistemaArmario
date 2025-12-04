@@ -213,6 +213,31 @@ SISTEMAARMARIO/
 
 Essa estrutura facilita a manutenção, organização e escalabilidade do sistema.
 
+### Padrões Arquiteturais e de Projeto
+
+O sistema foi desenvolvido utilizando boas práticas de engenharia de software, implementando os seguintes padrões:
+
+#### 1. MVC (Model-View-Controller) - Arquitetural
+O padrão base do projeto, separando a aplicação em três camadas lógicas:
+- **Model**: Representação dos dados e regras de negócio básicas.
+- **View**: Interface com o usuário (HTML/Templates).
+- **Controller**: Intermediário que processa as requisições e atualiza a View.
+
+#### 2. Repository Pattern - Arquitetural
+Implementado para abstrair a camada de acesso a dados.
+- **Objetivo**: Desacoplar a lógica de negócio da implementação específica do banco de dados.
+- **Implementação**: Classes em `repositories/` (ex: `UsuarioRepository`, `ArmarioRepository`) centralizam as consultas ao banco.
+
+#### 3. Factory Method Pattern - Design (Criação)
+Utilizado para encapsular a lógica de criação de objetos complexos.
+- **Objetivo**: Centralizar a criação de instâncias, garantindo que regras de inicialização (como hash de senhas) sejam sempre respeitadas.
+- **Implementação**: `UsuarioFactory` em `factories/` é responsável por instanciar novos usuários.
+
+#### 4. Observer Pattern - Design (Comportamental)
+Implementado para gerenciar notificações e eventos do sistema.
+- **Objetivo**: Permitir que objetos reajam a eventos ocorridos em outros objetos sem acoplamento rígido.
+- **Implementação**: Quando uma reserva é criada (`ReservaSubject`), o sistema notifica observadores (`EmailLoggerObserver`), permitindo extensões futuras como envio real de e-mails ou logs de auditoria.
+
 
 ### Banco de Dados
 
